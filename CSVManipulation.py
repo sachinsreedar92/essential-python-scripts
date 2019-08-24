@@ -1,12 +1,12 @@
 import csv
 with open ('/Users/sachinsreedar92/Downloads/medikoe.csv') as csvFile:
-    tripIds = []
+    column = []
     readCsv = csv.reader(csvFile, delimiter=',')
     for row in readCsv:
-        tripId = row[0]
-        if tripId != "":
-            tripIds.append(tripId)
-    dup_list = tripIds
+        data = row[0]
+        if data != "":
+            column.append(data)
+    dup_list = column
 
 
 def remove_duplicates(dup_list):
