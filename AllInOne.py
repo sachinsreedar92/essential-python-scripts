@@ -20,4 +20,4 @@ def remove_duplicates(dup_list):
     return withoutDup
 
 print(len(dup_list))
-print(dup_list)
+print(remove_duplicates(dup_list))
