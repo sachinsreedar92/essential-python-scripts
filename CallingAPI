@@ -1,0 +1,36 @@
+import csv,requests as r, json as j, time, json
+
+file = open("success_ids.csv", "w")
+file1 = open("failed_ids.csv","w")
+
+def readCSV(csv_path):
+    openingCsv = open(csv_path)
+    readingCsv = csv.reader(openingCsv, delimiter=',')
+    next(readingCsv, None)
+    for row in readingCsv:
+        requestId = row[0];
+        response = None
+        try:
+            response = r.get("http://xxx.com/id=" + requestId, timeout=60)
+            data = json.loads(response.text)
+            responseId = str(data["id"])
+        except:
+            file1.write(str(requestId)+"\n")
+        if(response == None):
+            file1.write(str(requestId) + "\n")
+        elif (response != None and response.status_code != 500):
+            file.write(responseId+"\n")
+        time.sleep(1);
+file.close()
+file1.close()
+
+def main(csv_path):
+    readCSV(csv_path)
+
+if __name__== "__main__":
+    try:
+        print("Ingestion Started")
+        main(csv_path="importedData.csv")
+        print("Ingestion ends !")
+    except Exception as ee:
+        print("Erro in main",ee)
